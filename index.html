@@ -26,13 +26,20 @@
       color: #202124;
     }
 
+    h4{
+        position: absolute;
+      top: 40px;
+      left: 30px;
+      font-weight: 100;
+    }
+
     .main-container {
       height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding-top: 100px;
+      padding-top: 150px;
     }
 
     .search-container {
@@ -54,7 +61,8 @@
 
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
-      -webkit-appearance: inner-spin-button;
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     input::placeholder {
@@ -87,7 +95,8 @@
 </head>
 <body>
 
-  <header>Magnum Calc</header>
+  <header>Magnum Calc.</header>
+  <h4>"Finds out the minimum marks required in sem for getting the passing marks"</h4>
 
   <div class="main-container">
     <div class="search-container">
@@ -115,26 +124,26 @@
 
       const avgCT = parseFloat(input);
 
-      // Check range validity
+      // Check for invalid range
       if (avgCT > 30 || avgCT < -5 || isNaN(avgCT)) {
-        // Error state
         const screenWidth = window.innerWidth;
-        const radius = screenWidth * 0.5; // 50% of screen width
+        const radius = screenWidth * 0.5;
 
         circle.style.width = `${radius}px`;
         circle.style.height = `${radius}px`;
         circle.style.fontSize = `${radius / 5}px`;
-        circle.style.backgroundColor = '#ffcccc'; // light red
+        circle.style.backgroundColor = '#ffcccc';
         circle.style.color = '#202124';
         circle.textContent = 'Error';
         circle.classList.remove('hidden');
         return;
       }
 
-      // Calculate valid result
-      const result = Math.floor(((39.5 - avgCT) / 0.7) + 1);
+      // Calculate result with conditional +1
+      let rawResult = (39.5 - avgCT) / 0.7;
+      const result = Math.floor(rawResult + (Number.isInteger(rawResult) ? 0 : 1));
 
-      // Circle size scaling (stronger effect)
+      // Scale circle size
       const minSize = 80;
       const maxSize = 300;
       const clampedResult = Math.min(Math.max(result, 1), 20);
@@ -144,8 +153,8 @@
       circle.style.width = `${size}px`;
       circle.style.height = `${size}px`;
       circle.style.fontSize = `${fontSize}px`;
-      circle.style.backgroundColor = '#0095f6'; // blue
-      circle.style.color = '#ffffff'; // white text
+      circle.style.backgroundColor = '#0095f6';
+      circle.style.color = '#ffffff';
       circle.textContent = result;
       circle.classList.remove('hidden');
     }
